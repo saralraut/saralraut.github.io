@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://saralraut.github.io/sitemap.xml

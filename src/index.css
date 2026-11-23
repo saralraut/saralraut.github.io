@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/*
+  DESIGN TOKENS
+  Tailwind v4 reads this @theme block and generates utilities from it:
+  --color-surface  ->  bg-surface, text-surface, border-surface ...
+  Change a value here and the whole site updates.
+
+  Naming note: I avoided "base" and "text" as token names because Tailwind
+  already has `text-base` (a font size) and `text-*` utilities, which would
+  collide with colour utilities.
+*/
+@theme {
+  --color-surface: #0b1120;        /* page background */
+  --color-surface-alt: #111827;    /* alternating sections, scrolled navbar */
+  --color-surface-card: #172235;   /* cards */
+  --color-accent: #38bdf8;         /* links, buttons, focus rings, active nav */
+  --color-accent-2: #818cf8;       /* secondary touches only (hero glow) */
+  --color-ink: #f8fafc;            /* headings, emphasis */
+  --color-ink-muted: #aab8cc;      /* body copy, captions */
+  --color-edge: rgb(255 255 255 / 0.1); /* borders and dividers */
+
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+/*
+  Custom utility (Tailwind v4 `@utility`): a faint dot grid that fades out
+  toward the edges. Pure CSS, so it costs no image download and no JavaScript.
+  Used as `class="bg-dot-grid"` on the hero background.
+*/
+@utility bg-dot-grid {
+  background-image: radial-gradient(circle, rgb(255 255 255 / 0.1) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, #000 25%, transparent 100%);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    /* keeps anchored headings from hiding under the sticky navbar */
+    scroll-padding-top: 5rem;
+  }
+
+  /* Respect visitors who ask their OS to reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink-muted);
+    font-family: var(--font-sans);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* One consistent, always-visible keyboard focus style */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
